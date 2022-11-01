@@ -20,21 +20,21 @@ namespace NetCoreCourse.FirstExample.WebApp.DataAccess
         //Mostrar durante la clase de teoria.
         //Este metodo se utiliza normalmente para configurar relaciones y restricciones con
         //   metodos Fluent.
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    modelBuilder.Entity<Address>()
-        //        .Property(a => a.Street)
-        //        .HasMaxLength(100);
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Address>()
+                .Property(a => a.Street)
+                .HasMaxLength(100);
 
-        //    modelBuilder.Entity<Address>()
-        //        .Property(a => a.Number)
-        //        .HasMaxLength(20);
+            modelBuilder.Entity<Address>()
+                .Property(a => a.Number)
+                .HasMaxLength(20);
 
-        //    modelBuilder.Entity<Address>()
-        //        .Property(a => a.City)
-        //        .HasMaxLength(100);
+            modelBuilder.Entity<Address>()
+                .Property(a => a.City)
+                .HasMaxLength(100);
 
-        //}
+        }
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<Address> Addresses { get; set; }
@@ -42,14 +42,17 @@ namespace NetCoreCourse.FirstExample.WebApp.DataAccess
         public DbSet<Person> People { get; set; }
 
         //Agregar durante las clases de teoria.
-        //public DbSet<Loan> Loans { get; set; }
+        public DbSet<Loan> Loans { get; set; }
     }
 
     /* Comandos PMC
      * Necesitan el NuGet Microsoft.EntityFrameworkCore.Tools para poder ser ejecutados.
-     * Los comandos de PMC utilizan 2 "proyectos" de entrada (o pueden ser pasados como parametros de los comandos lo cual no es muy comodo.)
-     * - StartUp Project: Es un tipo de proyecto que debe referenciar o ser el proyecto que contiene el DbContext y debe ser ejecutable (Consola, WebApp o DesktopApp).
-     * - Default Project en PMC: Debe ser el proyecto que contiene las migraciones. Este proyecto debe contener la referencia a Microsoft.EntityFrameworkCore
+     * Los comandos de PMC utilizan 2 "proyectos" de entrada 
+     * (o pueden ser pasados como parametros de los comandos lo cual no es muy comodo.)
+     * - StartUp Project: Es un tipo de proyecto que debe referenciar o ser el proyecto 
+     *   que contiene el DbContext y debe ser ejecutable (Consola, WebApp o DesktopApp).
+     * - Default Project en PMC: Debe ser el proyecto que contiene las migraciones. 
+     *   Este proyecto debe contener la referencia a Microsoft.EntityFrameworkCore
      *
     */
 }

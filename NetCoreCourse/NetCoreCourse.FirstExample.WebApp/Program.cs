@@ -1,15 +1,17 @@
 // No tenemos una clase. Como es posible? Utilicemos un decompilador.
+
+
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Http.Json;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using NetCoreCourse.FirstExample.WebApp.Configuration;
 using NetCoreCourse.FirstExample.WebApp.DataAccess;
+using NetCoreCourse.FirstExample.WebApp.DataAccess.Generic;
 using NetCoreCourse.FirstExample.WebApp.Dto;
+using NetCoreCourse.FirstExample.WebApp.Entities;
 using NetCoreCourse.FirstExample.WebApp.Filters;
 using NetCoreCourse.FirstExample.WebApp.Handlers;
 using NetCoreCourse.FirstExample.WebApp.Services;
-using System.Security.Cryptography.Xml;
 using System.Text;
 using System.Text.Json.Serialization;
 
@@ -61,6 +63,10 @@ builder.Services.Configure<FirstConfigurationOptions>(firstConfigurationObject);
 //Agregando configuracion para JWT
 builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("JWT"));
 
+
+var newSection = builder.Configuration.GetSection("NewSection");
+builder.Services.Configure<NewSection>(newSection);
+
 // Agregamos los servicios al contenedor de dependencias
 builder.Services.AddTransient<IForecastService, ForecastService>();
 builder.Services.AddTransient<IServiceUsingServices, ServiceUsingServices>();
@@ -70,11 +76,20 @@ builder.Services.AddTransient<ITransientRandomValueService, RandomValueService>(
 builder.Services.AddScoped<IScopedRandomValueService, RandomValueService>();
 builder.Services.AddSingleton<ISingletonRandomValueService, RandomValueService>();
 
+
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddScoped<IJwtHandler, JwtHandler>();
 
-//Lo vamos a ver en el Modulo de EF Core
+
+
+builder.Services.AddSingleton<IExcerciseService, ExcerciseService>();
+
+builder.Services.AddSingleton < IRepositorioBase<Item>, RepositorioBase<Item> >();
+builder.Services.AddSingleton<IRepositorioBase<TaskToDo>, RepositorioBase<TaskToDo> >();
+
+
+
 builder.Services.AddDbContext<ThingsContext>(options =>
 {
     //Para poder utilizar SqlServer necesitamos instalar el paquete
@@ -97,6 +112,10 @@ if (app.Environment.IsEnvironment("MarcosDev"))
 {
     app.Logger.LogInformation("Este es el ambiente de Marcos.");
 }
+else if (app.Environment.IsEnvironment("BrunoDev")) 
+{
+    app.Logger.LogInformation("Este es el ambiente de Bruno");
+} 
 
 //app.UseHttpsRedirection(); //Redirecciona cualquier request HTTP a HTTPS
 

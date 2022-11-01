@@ -40,8 +40,7 @@ namespace NetCoreCourse.FirstExample.WebApp.Controllers
             return thingsContext.Categories.ToList();
         }
 
-        [HttpGet]
-        [Route("{id}")]
+        [HttpGet("{id}")]
         public Category? GetCategoryById(int id)
         {
             return thingsContext.Categories.FirstOrDefault(c => c.Id == id);

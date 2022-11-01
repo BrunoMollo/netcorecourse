@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using NetCoreCourse.FirstExample.WebApp.Dto;
+using NetCoreCourse.FirstExample.WebApp.Entities;
 using NetCoreCourse.FirstExample.WebApp.Handlers;
 
 namespace NetCoreCourse.FirstExample.WebApp.Controllers
@@ -7,6 +9,7 @@ namespace NetCoreCourse.FirstExample.WebApp.Controllers
     [Route("api/[controller]")]
     public class GenericController : ControllerBase
     {
+
         [HttpGet("lists")]
         public IActionResult ListUsage() //Ver la clase transporte.
         {
@@ -65,5 +68,11 @@ namespace NetCoreCourse.FirstExample.WebApp.Controllers
             // Probar agregando la restriccion al generic.
             return Ok(new { intSpec, charSpec, transportSpec1, transportSpec2 });
         }
+
+
+        [HttpGet("sayMyName")]
+        public IActionResult sayMyName() => Ok(new List<String> { "Bruno", "Mollo" });
+        
+
     }
 }

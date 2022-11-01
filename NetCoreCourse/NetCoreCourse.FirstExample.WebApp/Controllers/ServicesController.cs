@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using NetCoreCourse.FirstExample.WebApp.Models;
 using NetCoreCourse.FirstExample.WebApp.Services;
 
@@ -13,12 +14,15 @@ namespace NetCoreCourse.FirstExample.WebApp.Controllers
         private readonly ISingletonRandomValueService singletonService;
         private readonly IServiceUsingServices serviceWithServices;
 
+        private readonly IExcerciseService excerciseService;
+
         public ServicesController(
             IForecastService forecastService,
             ITransientRandomValueService transientService,
             IScopedRandomValueService scopedService,
             ISingletonRandomValueService singletonService,
-            IServiceUsingServices serviceWithServices
+            IServiceUsingServices serviceWithServices,
+            IExcerciseService excerciseService
         )
 
         {
@@ -27,6 +31,7 @@ namespace NetCoreCourse.FirstExample.WebApp.Controllers
             this.scopedService = scopedService;
             this.singletonService = singletonService;
             this.serviceWithServices = serviceWithServices;
+            this.excerciseService = excerciseService;
         }
 
         [HttpGet("forecast")]
@@ -51,5 +56,9 @@ namespace NetCoreCourse.FirstExample.WebApp.Controllers
 
             return Ok(new RandomServiceResponse(fromController, fromService));
         }
+
+        [HttpGet("excercise")]
+        public IActionResult getExcerice(int id=2) => Ok( this.excerciseService.getExcercise(2) );
+        
     }
 }

@@ -28,5 +28,17 @@ namespace NetCoreCourse.FirstExample.WebApp.Controllers
             });
             //Que tipo es este ^^^^? 
         }
+
+        [HttpGet("formatName")]
+        public IActionResult formatName() 
+        {
+            var frameWork = "net framework".UppercaseFirstLetter();
+            var myName = "bruno mollo".forEachWord((w) => w.UppercaseFirstLetter());
+         
+            return Ok(new {
+                frameWork,
+                myName
+            });
+        }
     }
 }
